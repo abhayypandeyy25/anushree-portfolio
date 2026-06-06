@@ -74,8 +74,21 @@
         els.forEach(function (el) { observer.observe(el); });
     }
 
+    // ---- Theme toggle ----
+    function wireThemeToggle() {
+        var btn = document.getElementById('themeToggle');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+            var root = document.documentElement;
+            var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            try { localStorage.setItem('theme', next); } catch (e) {}
+        });
+    }
+
     // ---- Init ----
     function init() {
+        wireThemeToggle();
         window.addEventListener('scroll', handleNavScroll, { passive: true });
         window.addEventListener('scroll', updateActiveNavLink, { passive: true });
 
